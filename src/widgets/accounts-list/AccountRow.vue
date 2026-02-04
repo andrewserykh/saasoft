@@ -12,13 +12,6 @@ const props = defineProps<{
   index: number
 }>()
 
-// type AccountsStoreInjected = {
-//   accounts: { value: Account[] }
-//   updateAccount: (index: number, payload: Partial<Account>) => void
-//   deleteAccount: (index: number) => void
-// }
-// const accountsStore = inject<AccountsStoreInjected>('accountsStore')!
-
 const type = ref<AccountType>('local')
 const login = ref<string | null>('')
 const password = ref<string | null>('')
