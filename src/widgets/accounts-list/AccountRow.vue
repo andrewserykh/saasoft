@@ -2,6 +2,7 @@
 import { ref, inject, watch, computed, nextTick } from 'vue'
 import type { AccountType, Account, AccountTag } from '@/types/account.types'
 import { ACCOUNT_TYPE_OPTIONS } from '@/types/account.types'
+import { useAccountsStore } from '../../stores/accounts'
 
 defineOptions({
   name: 'AccountRow',
@@ -11,18 +12,24 @@ const props = defineProps<{
   index: number
 }>()
 
-type AccountsStoreInjected = {
-  accounts: { value: Account[] }
-  updateAccount: (index: number, payload: Partial<Account>) => void
-  deleteAccount: (index: number) => void
-}
-const accountsStore = inject<AccountsStoreInjected>('accountsStore')!
+// type AccountsStoreInjected = {
+//   accounts: { value: Account[] }
+//   updateAccount: (index: number, payload: Partial<Account>) => void
+//   deleteAccount: (index: number) => void
+// }
+// const accountsStore = inject<AccountsStoreInjected>('accountsStore')!
 
 const type = ref<AccountType>('local')
 const login = ref<string | null>('')
 const password = ref<string | null>('')
 const showPassword = ref(false)
 const requireUpdate = ref(false)
+
+const accountsStore = useAccountsStore()
+const storeAccount = computed(() => {
+  return accountsStore.accounts[props.index]
+})
+
 
 const rawTags = ref<Array<string | AccountTag>>([])
 const searchInput = ref<string>('')
@@ -38,9 +45,7 @@ const tags = computed<AccountTag[]>({
   },
 })
 
-const storeAccount = computed(() => {
-  return accountsStore.accounts.value[props.index]
-})
+
 
 function syncFromStore() {
   if (!storeAccount.value) return

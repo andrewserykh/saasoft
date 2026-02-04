@@ -19,11 +19,11 @@ const isAddDisabled = computed(() => {
   return !lastAccount?.login.trim()
 })
 
-provide('accountsStore', {
-  accounts: accounts,
-  updateAccount: accountsStore.updateAccount,
-  deleteAccount: accountsStore.deleteAccount,
-})
+// provide('accountsStore', {
+//   accounts: accounts,
+//   updateAccount: accountsStore.updateAccount,
+//   deleteAccount: accountsStore.deleteAccount,
+// })
 
 
 function addAccount() {
